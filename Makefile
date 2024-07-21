@@ -6,7 +6,7 @@
 #    By: angsanch <angsanch@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 18:29:24 by angsanch          #+#    #+#              #
-#    Updated: 2024/07/21 01:13:00 by angsanch         ###   ########.fr        #
+#    Updated: 2024/07/21 03:14:05 by angsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ CC=gcc
 
 CFLAGS=-Wall -Werror -Wextra
 
-C_FILES =
+C_FILES = src/main.c \
+			src/tools/tpipex.c \
+			src/tools/command.c \
 
 O_FILES = $(C_FILES:.c=.o)
 

@@ -6,13 +6,13 @@
 #    By: angsanch <angsanch@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 18:29:06 by angsanch          #+#    #+#              #
-#    Updated: 2024/06/20 03:44:43 by angsanch         ###   ########.fr        #
+#    Updated: 2024/07/21 02:07:28 by angsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 COMPILE_BASIC = true
-COMPILE_PRINTF = true
-COMPILE_LINKED = true
+COMPILE_PRINTF = false
+COMPILE_LINKED = false
 
 CC=gcc
 
