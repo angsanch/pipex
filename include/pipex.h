@@ -18,12 +18,19 @@
 typedef struct command_info
 {
 	char	*path;
+	int		argc;
 	char	**argv;
 }	t_command;
 
+typedef struct path_info
+{
+	char	**path;
+	size_t	longest;
+}	t_path;
+
 typedef struct pipex_info
 {
-	char		**path;
+	t_path		path;
 	t_command	*command;
 	size_t		command_amount;
 	int			ifd;
@@ -32,7 +39,7 @@ typedef struct pipex_info
 
 t_pipex	*pipex_create(int argc, char **argv, char **env);
 void	pipex_destroy(t_pipex *pipex);
-int		command_initialize(t_command *command, char **path, char *text);
+int		command_initialize(t_command *command, t_path *path, char *text);
 void	command_delete(t_command *command);
 
 #endif
