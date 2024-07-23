@@ -37,7 +37,7 @@ typedef struct pipex_info
 	int			ofd;
 }	t_pipex;
 
-t_pipex	*pipex_create(int argc, char **argv, char **env);
+t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount);
 void	pipex_destroy(t_pipex *pipex);
 int		command_initialize(t_command *command, t_path *path, char *text);
 void	command_delete(t_command *command);

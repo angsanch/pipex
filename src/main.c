@@ -16,7 +16,7 @@ static int	pipex(int argc, char **argv, char **env)
 {
 	t_pipex	*pipex;
 
-	pipex = pipex_create(argc, argv, env);
+	pipex = pipex_create(argc, argv, env, 2);
 	if (pipex == NULL)
 		return (0);
 	for (size_t i = 0; i < pipex->command_amount; i++)

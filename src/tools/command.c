@@ -62,6 +62,8 @@ int	command_initialize(t_command *command, t_path *path, char *text)
 
 void	command_delete(t_command *command)
 {
+	if (command == NULL)
+		return ;
 	free(command->path);
 	free_string_array(command->argv);
 }

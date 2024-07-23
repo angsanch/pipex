@@ -44,11 +44,10 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 {
 	size_t	i;
 
-	if (argc < 5)
+	if ((size_t)argc != pipex->command_amount + 3)
 		return (0);
 	if (!add_path(pipex, env))
 		return (0);
-	pipex->command_amount = argc - 3;
 	pipex->command = my_calloc(sizeof(t_command), pipex->command_amount);
 	if (pipex->command == NULL)
 		return (0);
@@ -62,13 +61,14 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 	return (1);
 }
 
-t_pipex	*pipex_create(int argc, char **argv, char **env)
+t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 {
 	t_pipex	*result;
 
 	result = my_calloc(sizeof(t_pipex), 1);
 	if (result == NULL)
 		return (NULL);
+	result->command_amount = command_amount;
 	if (!prepare_pipex(result, argc, argv, env))
 	{
 		pipex_destroy(result);
@@ -81,13 +81,18 @@ void	pipex_destroy(t_pipex *pipex)
 {
 	size_t	i;
 
-	i = 0;
-	while (i < pipex->command_amount)
+	if (pipex == NULL)
+		return ;
+	if (pipex->command != NULL)
 	{
-		command_delete(&pipex->command[i]);
-		i ++;
+		i = 0;
+		while (i < pipex->command_amount)
+		{
+			command_delete(&pipex->command[i]);
+			i ++;
+		}
+		free(pipex->command);
 	}
-	free(pipex->command);
 	free_string_array(pipex->path.path);
 	free(pipex);
 }
