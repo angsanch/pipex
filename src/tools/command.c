@@ -12,6 +12,17 @@
 
 #include "../../include/pipex.h"
 
+static int	check_binary(char *path)
+{
+	int	fd;
+
+	fd = access(path, R_OK | X_OK);
+	if (fd < 0)
+		return (0);
+	close(fd);
+	return (1);
+}
+
 static char	*get_path(t_path *path, char *name)
 {
 	char	*result;
@@ -19,7 +30,7 @@ static char	*get_path(t_path *path, char *name)
 
 	if (my_strchr_count(name, '/') > 0)
 		return (my_strdup(name));
-	result = malloc((path->longest + my_strlen(name) + 1) * sizeof(char));
+	result = malloc((path->longest + my_strlen(name) + 2) * sizeof(char));
 	if (result == NULL)
 		return (NULL);
 	i = 0;
@@ -29,7 +40,7 @@ static char	*get_path(t_path *path, char *name)
 		if (result[my_strlen(result) - 1] != '/')
 			my_strcat(result, "/");
 		my_strcat(result, name);
-		if (access(result, R_OK | X_OK))
+		if (check_binary(result))
 			return (result);
 		i ++;
 	}

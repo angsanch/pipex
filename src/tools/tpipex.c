@@ -48,7 +48,7 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 		return (0);
 	if (!add_path(pipex, env))
 		return (0);
-	pipex->command_amount = argc - 2;
+	pipex->command_amount = argc - 3;
 	pipex->command = my_calloc(sizeof(t_command), pipex->command_amount);
 	if (pipex->command == NULL)
 		return (0);
@@ -87,6 +87,7 @@ void	pipex_destroy(t_pipex *pipex)
 		command_delete(&pipex->command[i]);
 		i ++;
 	}
+	free(pipex->command);
 	free_string_array(pipex->path.path);
 	free(pipex);
 }
