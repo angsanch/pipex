@@ -12,17 +12,6 @@
 
 #include "../../include/pipex.h"
 
-static int	check_binary(char *path)
-{
-	int	fd;
-
-	fd = access(path, R_OK | X_OK);
-	if (fd < 0)
-		return (0);
-	close(fd);
-	return (1);
-}
-
 static char	*get_path(t_path *path, char *name)
 {
 	char	*result;
@@ -40,7 +29,7 @@ static char	*get_path(t_path *path, char *name)
 		if (result[my_strlen(result) - 1] != '/')
 			my_strcat(result, "/");
 		my_strcat(result, name);
-		if (check_binary(result))
+		if (access(result, R_OK | X_OK) == 0)
 			return (result);
 		i ++;
 	}

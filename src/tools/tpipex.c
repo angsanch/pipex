@@ -74,6 +74,8 @@ t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 		pipex_destroy(result);
 		return (NULL);
 	}
+	result->ifd = -1;
+	result->ofd = -1;
 	return (result);
 }
 
