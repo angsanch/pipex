@@ -49,13 +49,21 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 	if (!add_path(pipex, env))
 		return (0);
 	pipex->command = my_calloc(sizeof(t_command), pipex->command_amount);
-	if (pipex->command == NULL)
+	pipex->pipes = my_calloc(sizeof(struct s_pipe), pipex->command_amount - 1);
+	if (pipex->command == NULL || pipex->pipes == NULL)
 		return (0);
 	i = 0;
 	while (i < pipex->command_amount)
 	{
 		if (!command_initialize(&pipex->command[i], &pipex->path, argv[i + 2]))
 			return (0);
+		i ++;
+	}
+	i = 0;
+	while (i < pipex->command_amount - 1)
+	{
+		pipex->pipes[i].read = -1;
+		pipex->pipes[i].write = -1;
 		i ++;
 	}
 	return (1);
@@ -69,7 +77,8 @@ t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 	if (result == NULL)
 		return (NULL);
 	result->command_amount = command_amount;
-	if (!prepare_pipex(result, argc, argv, env))
+	if ((!prepare_pipex(result, argc, argv, env)) || \
+		pipe((int *)&result->status) < 0)
 	{
 		pipex_destroy(result);
 		return (NULL);
@@ -77,6 +86,14 @@ t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 	result->ifd = -1;
 	result->ofd = -1;
 	return (result);
+}
+
+static void	close_pipe(struct s_pipe *pipe)
+{
+	if (pipe->read >= 0)
+		close(pipe->read);
+	if (pipe->write >= 0)
+		close(pipe->write);
 }
 
 void	pipex_destroy(t_pipex *pipex)
@@ -96,5 +113,13 @@ void	pipex_destroy(t_pipex *pipex)
 		free(pipex->command);
 	}
 	free_string_array(pipex->path.path);
+	i = 0;
+	while (i < pipex->command_amount - 1 && pipex->pipes != NULL)
+	{
+		close_pipe(&pipex->pipes[i]);
+		i ++;
+	}
+	close_pipe(&pipex->status);
+	free(pipex->pipes);
 	free(pipex);
 }

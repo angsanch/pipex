@@ -46,6 +46,7 @@ int	command_initialize(t_command *command, t_path *path, char *text)
 	if (command->argc < 1)
 		return (0);
 	command->path = get_path(path, command->argv[0]);
+	command->pid = -1;
 	return (command->path != NULL);
 }
 

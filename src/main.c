@@ -26,18 +26,25 @@ static int	get_fds(t_pipex *pipex, char *in, char *out)
 	return (1);
 }
 
+static int	run(t_pipex *pipex, int argc, char **argv)
+{
+	if (!get_fds(pipex, argv[1], argv[argc - 1]))
+		return (0);
+	if (!execution(pipex))
+		return (0);
+	return (1);
+}
+
 static int	pipex(int argc, char **argv, char **env)
 {
 	t_pipex	*pipex;
 	int		status;
 
-	pipex = pipex_create(argc, argv, env, 2);
+	pipex = pipex_create(argc, argv, env, argc - 3);
 	if (pipex == NULL)
 		return (0);
-	for (size_t i = 0; i < pipex->command_amount; i++)
-		printf("%2d\t%s\n", pipex->command[i].argc, pipex->command[i].path);
-	status = get_fds(pipex, argv[1], argv[argc - 1]);
-	printf("%2d\t%2d\n", pipex->ifd, pipex->ofd);
+	pipex->env = env;
+	status = run(pipex, argc, argv);
 	pipex_destroy(pipex);
 	return (status);
 }

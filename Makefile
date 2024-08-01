@@ -12,11 +12,14 @@
 
 CC=gcc
 
-CFLAGS=-Wall -Werror -Wextra
+CFLAGS=-Wall -Werror -Wextra -g
 
 C_FILES = src/main.c \
 			src/tools/tpipex.c \
 			src/tools/command.c \
+			src/exec/run.c \
+			src/exec/child.c \
+			src/exec/parent.c \
 
 O_FILES = $(C_FILES:.c=.o)
 
