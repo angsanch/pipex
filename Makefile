@@ -12,11 +12,12 @@
 
 CC=gcc
 
-CFLAGS=-Wall -Werror -Wextra -g
+CFLAGS=-Wall -Werror -Wextra
 
 C_FILES = src/main.c \
 			src/tools/tpipex.c \
 			src/tools/command.c \
+			src/tools/spipe.c \
 			src/exec/run.c \
 			src/exec/child.c \
 			src/exec/parent.c \

@@ -88,12 +88,19 @@ t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 	return (result);
 }
 
-static void	close_pipe(struct s_pipe *pipe)
+void	pipex_close(t_pipex *pipex)
 {
-	if (pipe->read >= 0)
-		close(pipe->read);
-	if (pipe->write >= 0)
-		close(pipe->write);
+	size_t	i;
+
+	i = 0;
+	while (i < pipex->command_amount - 1 && pipex->pipes != NULL)
+	{
+		close_pipe(&pipex->pipes[i]);
+		i ++;
+	}
+	close_pipe(&pipex->status);
+	close(pipex->ifd);
+	close(pipex->ofd);
 }
 
 void	pipex_destroy(t_pipex *pipex)
@@ -113,13 +120,6 @@ void	pipex_destroy(t_pipex *pipex)
 		free(pipex->command);
 	}
 	free_string_array(pipex->path.path);
-	i = 0;
-	while (i < pipex->command_amount - 1 && pipex->pipes != NULL)
-	{
-		close_pipe(&pipex->pipes[i]);
-		i ++;
-	}
-	close_pipe(&pipex->status);
 	free(pipex->pipes);
 	free(pipex);
 }
