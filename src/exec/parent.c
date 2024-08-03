@@ -12,15 +12,43 @@
 
 #include "../../include/pipex.h"
 
+static void	close_fds(t_pipex *pipex, size_t id)
+{
+	if (id == 0)
+		close(pipex->ifd);
+	else
+		close(pipex->pipes[id - 1].read);
+	if (id == pipex->command_amount - 1)
+		close(pipex->ofd);
+	else
+		close(pipex->pipes[id].write);
+}
+
+static ssize_t	get_id_by_pid(t_pipex *pipex, pid_t pid)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < pipex->command_amount)
+	{
+		if (pipex->command[i].pid == pid)
+			return (i);
+		i ++;
+	}
+	return (-1);
+}
+
 int	manage_children(t_pipex *pipex)
 {
-	pid_t	pid;
+	ssize_t	id;
 	int		wstatus;
 
 	while (pipex->active > 0)
 	{
-		pid = wait(&wstatus);
-		printf("kid %7d has ended.\n", (int)pid);
+		id = get_id_by_pid(pipex, wait(&wstatus));
+		if (id < 0)
+			continue ;
+		close_fds(pipex, id);
 		pipex->active --;
 	}
 	return (1);
