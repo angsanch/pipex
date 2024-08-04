@@ -99,8 +99,10 @@ void	pipex_close(t_pipex *pipex)
 		i ++;
 	}
 	close_pipe(&pipex->status);
-	close(pipex->ifd);
-	close(pipex->ofd);
+	if (pipex->ifd >= 0)
+		close(pipex->ifd);
+	if (pipex->ofd >= 0)
+		close(pipex->ofd);
 }
 
 void	pipex_destroy(t_pipex *pipex)

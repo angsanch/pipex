@@ -17,10 +17,10 @@ static int	get_fds(t_pipex *pipex, char *in, char *out)
 	pipex->ifd = open(in, O_RDONLY);
 	if (pipex->ifd < 0)
 		return (0);
-	pipex->ofd = open(out, O_WRONLY);
+	pipex->ofd = open(out, O_WRONLY | O_CREAT);
 	if (pipex->ofd < 0)
 	{
-		close(pipex->ofd);
+		close(pipex->ifd);
 		return (0);
 	}
 	return (1);
@@ -39,20 +39,23 @@ static int	pipex(int argc, char **argv, char **env)
 {
 	t_pipex	*pipex;
 	int		status;
+	int		exit_code;
 
 	pipex = pipex_create(argc, argv, env, argc - 3);
 	if (pipex == NULL)
-		return (0);
+		return (84);
 	pipex->env = env;
 	status = run(pipex, argc, argv);
+	exit_code = pipex->command[pipex->command_amount - 1].exit_status;
 	pipex_destroy(pipex);
-	return (status);
+	if (!status)
+		return (84);
+	return (exit_code);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	if (!pipex(argc, argv, env))
+	if (argc < 5)
 		return (84);
-	else
-		return (0);
+	return (pipex(argc, argv, env));
 }

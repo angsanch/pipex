@@ -38,6 +38,18 @@ static ssize_t	get_id_by_pid(t_pipex *pipex, pid_t pid)
 	return (-1);
 }
 
+static void	manage_wstatus(t_command *c, int wstatus)
+{
+	if (WIFEXITED(wstatus))
+		c->exit_status = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+	{
+		c->exit_status = 128 + WTERMSIG(wstatus);
+	}
+	else
+		c->exit_status = 1;
+}
+
 int	manage_children(t_pipex *pipex)
 {
 	ssize_t	id;
@@ -49,6 +61,7 @@ int	manage_children(t_pipex *pipex)
 		if (id < 0)
 			continue ;
 		close_fds(pipex, id);
+		manage_wstatus(&pipex->command[id], wstatus);
 		pipex->active --;
 	}
 	return (1);

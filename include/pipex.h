@@ -28,6 +28,7 @@ typedef struct command_info
 	int		argc;
 	char	**argv;
 	pid_t	pid;
+	int		exit_status;
 }	t_command;
 
 typedef struct path_info
