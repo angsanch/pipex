@@ -55,8 +55,8 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 	i = 0;
 	while (i < pipex->command_amount)
 	{
-		if (!command_initialize(&pipex->command[i], &pipex->path, argv[i + 2]))
-			return (0);
+		pipex->active += \
+			command_initialize(&pipex->command[i], &pipex->path, argv[i + 2]);
 		i ++;
 	}
 	i = 0;
@@ -66,7 +66,7 @@ static int	prepare_pipex(t_pipex *pipex, int argc, char **argv, char **env)
 		pipex->pipes[i].write = -1;
 		i ++;
 	}
-	return (1);
+	return (pipex->active == pipex->command_amount);
 }
 
 t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
@@ -83,6 +83,7 @@ t_pipex	*pipex_create(int argc, char **argv, char **env, size_t command_amount)
 		pipex_destroy(result);
 		return (NULL);
 	}
+	result->active = 0;
 	result->ifd = -1;
 	result->ofd = -1;
 	return (result);

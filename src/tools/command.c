@@ -44,7 +44,10 @@ int	command_initialize(t_command *command, t_path *path, char *text)
 		return (0);
 	command->argc = get_pointer_array_len(command->argv);
 	if (command->argc < 1)
+	{
+		my_dprintf(2, ": Empty command.\n");
 		return (0);
+	}
 	command->path = get_path(path, command->argv[0]);
 	command->pid = -1;
 	command->exit_status = 1;
