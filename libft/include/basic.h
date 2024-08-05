@@ -22,6 +22,7 @@
 char	*convert_base(char const *nbr,
 			char const *base_from, char const *base_to);
 char	*get_next_line(int fd);
+void	gnl_flush(void);
 void	*my_calloc(size_t count, size_t size);
 int		my_intlen_base(int nb, int base_len);
 int		my_getnbr_base(char const *str, char const *base);

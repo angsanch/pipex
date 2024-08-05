@@ -14,6 +14,8 @@
 # define PIPEX_H
 
 # include <sys/wait.h>
+# include <string.h>
+# include <errno.h>
 # include "basic.h"
 # include "my_printf.h"
 

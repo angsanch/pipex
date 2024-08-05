@@ -87,9 +87,10 @@ static char	*get_line(int fd, t_file_buffer *f)
 
 char	*get_next_line(int fd)
 {
-	static t_file_buffer	files[FOPEN_MAX] = {{NULL, 0, NULL, 0}};
-	size_t					i;
+	t_file_buffer	*files;
+	size_t			i;
 
+	files = gnl_buffer_holder();
 	if (files[0].len == 0)
 	{
 		i = 1;

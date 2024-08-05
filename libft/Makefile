@@ -6,7 +6,7 @@
 #    By: angsanch <angsanch@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 18:29:06 by angsanch          #+#    #+#              #
-#    Updated: 2024/08/04 17:59:51 by angsanch         ###   ########.fr        #
+#    Updated: 2024/08/05 04:16:21 by angsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ COMPILE_LINKED = true
 
 CC=gcc
 
-CFLAGS=-Werror -Wall -Wextra
+CFLAGS=-Werror -Wall -Wextra -g
 
 BASIC_SOURCE = src/basic/my_strupcase.c \
 			src/basic/my_getnbr.c \
@@ -60,6 +60,7 @@ BASIC_SOURCE = src/basic/my_strupcase.c \
 			src/basic/my_memchr.c \
 			src/basic/my_memmove.c \
 			src/basic/gnl.c \
+			src/basic/gnl_utils.c \
 			src/basic/my_revmem.c \
 			src/basic/report_error.c \
 			src/basic/my_strreplace.c \
