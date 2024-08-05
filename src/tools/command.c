@@ -47,7 +47,11 @@ int	command_initialize(t_command *command, t_path *path, char *text)
 		return (0);
 	command->path = get_path(path, command->argv[0]);
 	command->pid = -1;
-	return (command->path != NULL);
+	command->exit_status = 1;
+	if (command->path != NULL)
+		return (1);
+	my_dprintf(2, "%s: command not found.\n", text);
+	return (0);
 }
 
 void	command_delete(t_command *command)

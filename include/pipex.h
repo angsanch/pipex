@@ -6,7 +6,7 @@
 /*   By: angsanch <angsanch@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 01:24:02 by angsanch          #+#    #+#             */
-/*   Updated: 2024/08/03 22:40:56 by angsanch         ###   ########.fr       */
+/*   Updated: 2024/08/05 03:26:10 by angsanch         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <sys/wait.h>
 # include "basic.h"
+# include "my_printf.h"
 
 struct s_pipe
 {
