@@ -6,7 +6,7 @@
 #    By: angsanch <angsanch@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 18:29:24 by angsanch          #+#    #+#              #
-#    Updated: 2024/07/21 03:14:05 by angsanch         ###   ########.fr        #
+#    Updated: 2024/08/05 21:42:17 by angsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ $(NAME): $(LIB) $(O_FILES)
 	$(CC) $(CFLAGS) -o $(NAME) $(O_FILES) $(LIB)
 
 all: $(NAME)
+
+bonus: all
 
 clean:
 	make -C libft clean
