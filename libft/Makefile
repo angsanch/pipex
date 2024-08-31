@@ -6,7 +6,7 @@
 #    By: angsanch <angsanch@student.42madrid.c      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/13 18:29:06 by angsanch          #+#    #+#              #
-#    Updated: 2024/08/05 04:16:21 by angsanch         ###   ########.fr        #
+#    Updated: 2024/08/31 19:27:05 by angsanch         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ COMPILE_LINKED = true
 
 CC=gcc
 
-CFLAGS=-Werror -Wall -Wextra -g
+CFLAGS=-Werror -Wall -Wextra
 
 BASIC_SOURCE = src/basic/my_strupcase.c \
 			src/basic/my_getnbr.c \

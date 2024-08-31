@@ -112,6 +112,7 @@ void	pipex_destroy(t_pipex *pipex)
 
 	if (pipex == NULL)
 		return ;
+	pipex_close(pipex);
 	if (pipex->command != NULL)
 	{
 		i = 0;
